@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ffw-xV-xgP">
+    <device id="watch42" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14031"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Symbol.ttf">
+            <string>Symbol</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="VimoHeartRate_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label width="1" height="0.29999999999999999" alignment="center" text="Device Name" textAlignment="left" id="Iio-p5-mtX">
+                            <color key="textColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </label>
+                        <group width="1" height="0.40000000000000002" alignment="left" id="H1g-Hj-yTZ">
+                            <items>
+                                <group width="0.40000000000000002" alignment="left" verticalAlignment="center" id="6KZ-3f-sGQ">
+                                    <items>
+                                        <imageView width="45" height="45" alignment="center" verticalAlignment="center" image="heart" id="Kno-zh-V7M">
+                                            <color key="tintColor" red="0.14117647059999999" green="0.63137254899999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </imageView>
+                                    </items>
+                                </group>
+                                <label width="0.34999999999999998" height="1" alignment="center" verticalAlignment="center" text="---" textAlignment="center" minimumScaleFactor="0.20000000000000001" id="hxi-vl-AIJ">
+                                    <color key="textColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="font" name="Symbol" family="Symbol" pointSize="28"/>
+                                </label>
+                                <label width="0.25" alignment="center" verticalAlignment="bottom" text="BPM" id="4j5-r9-kub">
+                                    <color key="textColor" red="0.8613288402557373" green="0.058584794402122498" blue="0.11313973367214203" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                    <variation key="device=watch42mm" verticalAlignment="bottom"/>
+                                </label>
+                            </items>
+                        </group>
+                        <button width="1" height="0.29999999999999999" alignment="left" title="Start" id="JvV-5H-a2z">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="startBtnTapped" destination="AgC-eL-Hgc" id="VIN-tV-rkh"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="deviceLabel" destination="Iio-p5-mtX" id="rHL-uK-Bcd"/>
+                        <outlet property="heart" destination="Kno-zh-V7M" id="Trd-za-8M9"/>
+                        <outlet property="label" destination="hxi-vl-AIJ" id="PRr-AV-DXj"/>
+                        <outlet property="startStopButton" destination="JvV-5H-a2z" id="DmP-mE-c0k"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="124" y="382"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="9fg-Vw-YCf">
+            <objects>
+                <controller id="ffw-xV-xgP" customClass="InterfaceController" customModule="VimoHeartRate_WatchKit_App_Extension">
+                    <items>
+                        <group width="0.97999999999999998" height="0.97999999999999998" alignment="center" verticalAlignment="center" id="NE2-Tz-VaY">
+                            <items>
+                                <group width="0.59999999999999998" height="1" alignment="left" layout="vertical" radius="8" id="7ko-QS-kH6">
+                                    <items>
+                                        <button width="1" alignment="left" title="Interval Time" id="3EM-md-fsz">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                            <connections>
+                                                <action selector="onInterval" destination="ffw-xV-xgP" id="mWw-sQ-48v"/>
+                                            </connections>
+                                        </button>
+                                        <separator width="105" alignment="left" id="Hva-5r-umm">
+                                            <color key="color" red="0.14117647059999999" green="0.63137254899999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </separator>
+                                        <group width="1" height="0.69999999999999996" alignment="left" layout="vertical" radius="6" id="NGt-zn-Vxg">
+                                            <items>
+                                                <label width="1" height="0.29999999999999999" alignment="left" text="Start" textAlignment="center" id="rmY-hW-qzr">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="24"/>
+                                                </label>
+                                                <label width="1" height="0.59999999999999998" alignment="left" text="0:30" textAlignment="center" id="Vc0-fU-nne">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
+                                                </label>
+                                            </items>
+                                            <gestureRecognizers>
+                                                <tapGestureRecognizer id="2wu-nA-sPX">
+                                                    <connections>
+                                                        <action selector="onStart" destination="ffw-xV-xgP" id="gTS-u4-4g9"/>
+                                                    </connections>
+                                                </tapGestureRecognizer>
+                                            </gestureRecognizers>
+                                            <color key="backgroundColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </group>
+                                    </items>
+                                    <color key="backgroundColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </group>
+                                <group width="0.40000000000000002" height="1" alignment="left" layout="vertical" radius="6" id="SJY-WG-R3y">
+                                    <items>
+                                        <button width="1" alignment="left" title="Clear Sets" id="dup-6E-vW0">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                            <connections>
+                                                <action selector="onClear" destination="ffw-xV-xgP" id="Fsp-kz-bQc"/>
+                                            </connections>
+                                        </button>
+                                        <separator width="100" alignment="left" id="Q3I-hl-Vzx">
+                                            <color key="color" red="0.14117647059999999" green="0.63137254899999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </separator>
+                                        <label width="1" height="0.20000000000000001" alignment="left" text="SET" textAlignment="center" id="D6r-s2-f4a">
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="27"/>
+                                        </label>
+                                        <label width="1" height="0.40000000000000002" alignment="left" text="1" textAlignment="center" id="DMt-YP-shZ">
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="font" type="system" weight="medium" pointSize="42"/>
+                                        </label>
+                                    </items>
+                                    <color key="backgroundColor" red="0.98039215690000003" green="0.92941176469999998" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </group>
+                            </items>
+                            <color key="backgroundColor" red="0.14117647058823529" green="0.63137254901960782" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </group>
+                    </items>
+                    <color key="backgroundColor" red="0.14117647059999999" green="0.63137254899999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="btnClear" destination="dup-6E-vW0" id="g4R-Ac-or2"/>
+                        <outlet property="btnInterval" destination="3EM-md-fsz" id="2Sh-3d-Xjl"/>
+                        <outlet property="groupTime" destination="NGt-zn-Vxg" id="vPt-J2-gir"/>
+                        <outlet property="labelSet" destination="DMt-YP-shZ" id="fXY-yK-cSy"/>
+                        <outlet property="labelStart" destination="rmY-hW-qzr" id="phC-yE-wJK"/>
+                        <outlet property="labelTime" destination="Vc0-fU-nne" id="WiQ-sK-B8k"/>
+                        <segue destination="AgC-eL-Hgc" kind="relationship" relationship="nextPage" id="Eom-SG-FU5"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-127" y="381"/>
+        </scene>
+    </scenes>
+</document>
