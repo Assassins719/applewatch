@@ -9,6 +9,9 @@
 import Foundation
 import HealthKit
 import WatchKit
+import UIKit
+import CoreLocation
+import UserNotifications
 
 
 class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
@@ -50,15 +53,12 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
         super.awake(withContext: context)
         
     }
-    
-    override func willActivate() {
-        super.willActivate()
-        
+    override func didAppear() {
         guard HKHealthStore.isHealthDataAvailable() == true else {
             label.setText("not available")
             return
         }
-    
+        
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate) else {
             displayNotAllowed()
             return
@@ -70,7 +70,14 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
                 self.displayNotAllowed()
             }
         }
+        startWorkout()
     }
+    override func willActivate() {
+        super.willActivate()
+        
+//        startWorkout()
+    }
+    
     
     func displayNotAllowed() {
         label.setText("not allowed")
@@ -123,7 +130,6 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
             self.startStopButton.setTitle("Stop")
             startWorkout()
         }
-
     }
     
     func startWorkout() {
@@ -132,7 +138,6 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
         if (session != nil) {
             return
         }
-        
         // Configure the workout session.
         let workoutConfiguration = HKWorkoutConfiguration()
         workoutConfiguration.activityType = .crossTraining
@@ -160,12 +165,12 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
         let heartRateQuery = HKAnchoredObjectQuery(type: quantityType, predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, sampleObjects, deletedObjects, newAnchor, error) -> Void in
             //guard let newAnchor = newAnchor else {return}
             //self.anchor = newAnchor
-            self.updateHeartRate(sampleObjects)
+//            self.updateHeartRate(sampleObjects)
         }
         
         heartRateQuery.updateHandler = {(query, samples, deleteObjects, newAnchor, error) -> Void in
             //self.anchor = newAnchor!
-            self.updateHeartRate(samples)
+//            self.updateHeartRate(samples)
         }
         return heartRateQuery
     }
@@ -211,54 +216,87 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
     @IBAction func onInterval() {
         nTimeIndex += 1;
         nTimeIndex = nTimeIndex % nTimeCount;
-        if(isTimerRunning == -1)
-        {
             labelTime.setText(timeString(time: TimeInterval(nTimes[nTimeIndex])))
-        }
+        
+        isTimerRunning = -1
+        timer.invalidate()
+        labelStart.setText("Start")
     }
     @IBAction func onClear() {
         labelStart.setText("Start")
-        seconds = 30
+        seconds = nTimes[nTimeIndex];
         labelTime.setText(timeString(time: TimeInterval(seconds)))
         nSet = 1;
         labelSet.setText(String(nSet))
         timer.invalidate()
         isTimerRunning = -1;
-        nTimeIndex = 0;
+//        nTimeIndex = 0;
     }
+    
     @IBAction func onStart() {
+        
         if isTimerRunning == -1 {
             labelStart.setText("Stop")
             isTimerRunning = 1
             seconds = nTimes[nTimeIndex];
             runTimer()
+//            startNewWorkout()
+
         }
         else if(isTimerRunning == 1){
             labelStart.setText("Start")
             isTimerRunning = 0;
             timer.invalidate()
+//            if let workout = self.session {
+//                healthStore.end(workout)
+//            }
         }
         else if(isTimerRunning == 0){
             labelStart.setText("Stop")
             isTimerRunning = 1;
             runTimer()
+//            startNewWorkout()
+
         }
     }
     
     func timeString(time:TimeInterval) -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        return String(format:"%01i:%02i", minutes, seconds)
+        if(time == 600){
+            return "10 M"
+        }else{
+            let minutes = Int(time) / 60 % 60
+            let seconds = Int(time) % 60
+            return String(format:"%01i:%02i", minutes, seconds)
+        }
     }
-    
+    func stringWithUUID() -> String {
+        let uuidObj = CFUUIDCreate(nil)
+        let uuidString = CFUUIDCreateString(nil, uuidObj)!
+        return uuidString as String
+    }
     func updateTimer(){
         if seconds < 1 {
             seconds = nTimes[nTimeIndex];
             //Send alert to indicate time's up.
-            seconds -= 1
+//            seconds -= 1
             labelTime.setText(timeString(time: TimeInterval(seconds)))
             nSet += 1;
             labelSet.setText(String(nSet))
+            
+            isTimerRunning = -1
+            timer.invalidate()
+            labelStart.setText("Start")
+            
+            let content = UNMutableNotificationContent()
+            content.title = "How many days are there in one year"
+            content.subtitle = "Do you know?"
+            content.body = "Do you really know?"
+            content.badge = 1
+            
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            
             
         } else {
             seconds -= 1

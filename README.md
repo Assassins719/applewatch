@@ -10,3 +10,4 @@ Heartrate Monitor with Timer Alarm
 
 - Xcode 8.0, iOS 10.0 SDK, watchOS 3.0 SDK
 - iOS 10 and watchOS 3.0
+# swiftwatchos
